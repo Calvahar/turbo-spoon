@@ -24,4 +24,4 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: dennthrow/turbo-spoon:#{{ GitHub.sha }}
+          tags: user/app:latest
