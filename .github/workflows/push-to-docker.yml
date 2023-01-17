@@ -1,11 +1,9 @@
-name: ci
+name: push-to-docker
 
 on:
   push:
     branches:
       - "main"
-      
-  workflow_dispatch:
 
 jobs:
   docker:
