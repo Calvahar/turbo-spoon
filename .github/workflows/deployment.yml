@@ -1,12 +1,13 @@
-name: push-to-docker
+name: deployment
 
 on:
   push:
     branches:
       - "main"
+  workflow_dispatch:
 
 jobs:
-  docker:
+  push-to-docker:
     runs-on: ubuntu-20.04
     steps:
       - name: Set up Docker Buildx
@@ -18,8 +19,18 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
-      - name: Build and push
+      - name: Build and push to Docker Hub
         uses: docker/build-push-action@v3
         with:
           push: true
           tags: dennthrow/turbo-spoon:latest
+
+  deploy-testing:
+    runs-on: ubuntu-20.04
+    environment: "testing"
+    needs: push-to-docker
+
+  deploy-production:
+    runs-on: ubuntu-20.04
+    environment: "production"
+    needs: [push-to-docker, deploy-testing]
