@@ -24,3 +24,20 @@ jobs:
         with:
           push: true
           tags: dennthrow/turbo-spoon:latest
+          
+  approval:
+    runs-on: ubuntu-20.04
+    
+    steps:     
+      - name: Request approval
+        id: approval_step
+        uses: actions/request-approval@v2
+        with:
+          reviewers: 'Calvahar'
+          message: 'Please review the deployment on the testing-cluster and approve if all works well.'
+      
+      - name: Send webhook
+        if: steps.approval_step.outputs.approved == 'true'
+        uses: actions/webhooks@v2
+        with:
+          args: 'https://e4a8-145-220-75-5.eu.ngrok.io/github'
