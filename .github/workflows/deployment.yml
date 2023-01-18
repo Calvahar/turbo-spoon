@@ -32,11 +32,9 @@ jobs:
     steps:
       - name: Invoke deployment hook
         uses: distributhor/workflow-webhook@v2
-        with:
-          verify_ssl: false
         env:
           webhook_url: ${{ secrets.WEBHOOK_URL_TEST }}
-          webhook_secret: ""
+          webhook_secret: ${{ secrets.WEBHOOK_SECRET }}
 
   deploy-production:
     runs-on: ubuntu-20.04
@@ -45,7 +43,6 @@ jobs:
     steps:
       - name: Invoke deployment hook
         uses: distributhor/workflow-webhook@v2
-        with:
-          verify_ssl: false
         env:
           webhook_url: ${{ secrets.WEBHOOK_URL_PROD }}
+          webhook_secret: ${{ secrets.WEBHOOK_SECRET }}
