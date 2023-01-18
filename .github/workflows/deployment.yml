@@ -29,8 +29,18 @@ jobs:
     runs-on: ubuntu-20.04
     environment: "testing"
     needs: push-to-docker
+    steps:
+      - name: Invoke deployment hook
+        uses: distributhor/workflow-webhook@v2
+        env:
+          webhook_url: ${{ secrets.WEBHOOK_URL_TEST }}
 
   deploy-production:
     runs-on: ubuntu-20.04
     environment: "production"
     needs: [push-to-docker, deploy-testing]
+    steps:
+      - name: Invoke deployment hook
+        uses: distributhor/workflow-webhook@v2
+        env:
+          webhook_url: ${{ secrets.WEBHOOK_URL_PROD }}
