@@ -34,6 +34,7 @@ jobs:
         uses: distributhor/workflow-webhook@v2
         env:
           webhook_url: ${{ secrets.WEBHOOK_URL_TEST }}
+          webhook_secret: ""
 
   deploy-production:
     runs-on: ubuntu-20.04
@@ -44,3 +45,4 @@ jobs:
         uses: distributhor/workflow-webhook@v2
         env:
           webhook_url: ${{ secrets.WEBHOOK_URL_PROD }}
+          webhook_secret: ""
