@@ -16,7 +16,7 @@ def elapsed():
 
 @app.route('/')
 def root():
-    return "Hello World! (DIT IS DE UPDATE) Server uptime: (up %s)\n" % elapsed()
+    return "Hello World! Server uptime: (up %s)\n" % elapsed()
 
 
 if __name__ == "__main__":
